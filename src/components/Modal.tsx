@@ -1,4 +1,4 @@
-import {Autocomplete, Box, Modal, TextField, Typography} from '@mui/material'
+import {Box, Modal, TextField, Typography} from '@mui/material'
 
 const style = {
 	position: 'absolute' as const,
