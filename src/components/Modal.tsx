@@ -1,11 +1,10 @@
-import {Alert, Box, Button, Modal, TextField, Typography} from '@mui/material'
-import {useEffect, useRef} from 'react'
+import {Box, Button, Modal, TextField, Typography} from '@mui/material'
+import {useRef} from 'react'
 import {User} from '../views/Home'
 import {useAppDispatch, useAppSelector} from '../store/store'
 import {createUser} from '../store/CreateUserSlice'
 import {setOpenModal} from '../store/ModalSlice'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
-import {CheckCircleOutline} from '@mui/icons-material'
 
 const style = {
 	position: 'absolute' as const,

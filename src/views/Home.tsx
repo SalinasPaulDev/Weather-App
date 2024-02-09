@@ -1,12 +1,9 @@
 import {Alert, Box, Button, List, Typography} from '@mui/material'
 import {UserModal} from '../components/Modal'
-import {Header} from '../components/Header'
 import {UserList} from '../components/UserList'
 import AddSharpIcon from '@mui/icons-material/AddSharp'
-import {useEffect, useState} from 'react'
 import {useAppDispatch, useAppSelector} from '../store/store'
 import {setOpenModal} from '../store/ModalSlice'
-import {useGetWeatherQuery} from '../API/weather'
 import {CheckCircleOutline} from '@mui/icons-material'
 
 export interface User {
@@ -20,6 +17,7 @@ function Home() {
 	const users = useAppSelector((state) => state.createUser.users)
 	const dispatch = useAppDispatch()
 	// const {data} = useGetWeatherQuery({})
+	console.log(console.log(import.meta.env.VITE_SOME_KEY))
 
 	console.log(users)
 	return (

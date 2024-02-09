@@ -7,7 +7,7 @@ import {User} from './Home'
 
 export const UserWeather = () => {
 	const [currentUser, setCurrentUser] = useState<User | null>(null)
-	const {data, error} = useGetWeatherQuery({
+	const {data} = useGetWeatherQuery({
 		lat: currentUser?.lat,
 		long: currentUser?.long,
 	})
@@ -34,7 +34,6 @@ export const UserWeather = () => {
 		findUser()
 	}, [])
 
-	console.log(data)
 	return (
 		<>
 			{!data ? (

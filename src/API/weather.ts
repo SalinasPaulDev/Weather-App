@@ -1,6 +1,8 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {WeatherData} from '../types/response'
 
+const API_KEY = import.meta.env.VITE_API_KEY
+
 export const weatherAPI = createApi({
 	reducerPath: 'weatherAPI',
 	baseQuery: fetchBaseQuery({
@@ -12,7 +14,7 @@ export const weatherAPI = createApi({
 			{lat: string | undefined; long: string | undefined}
 		>({
 			query: ({lat, long}) =>
-				`weather?lat=${lat}&lon=${long}&units=metric&lang=es&appid=97db651c677929b0316f4b06c41de955`,
+				`weather?lat=${lat}&lon=${long}&units=metric&lang=es&appid=${API_KEY}`,
 		}),
 	}),
 })
