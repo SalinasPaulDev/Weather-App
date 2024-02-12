@@ -4,10 +4,12 @@ import {useLocation, useNavigate} from 'react-router-dom'
 import {useAppSelector} from '../store/store'
 import {useEffect, useState} from 'react'
 import {User} from './Home'
+import {Loader} from '../components/Loader'
+import {DailyForecastCards} from '../components/ForecastCards/ForecastCards'
 
 export const UserWeather = () => {
 	const [currentUser, setCurrentUser] = useState<User | null>(null)
-	const {data} = useGetWeatherQuery({
+	const {data: currentWeather} = useGetWeatherQuery({
 		lat: currentUser?.lat,
 		long: currentUser?.long,
 	})
@@ -36,23 +38,43 @@ export const UserWeather = () => {
 
 	return (
 		<>
-			{!data ? (
-				<div>Loading...</div>
+			{!currentWeather ? (
+				<div className="loader-container">
+					<Loader />
+				</div>
 			) : (
 				<Box
 					textAlign={'center'}
 					py={2}
 					px={2}
+					maxWidth={{md: '50%'}}
+					margin={'auto'}
 				>
-					<Box>
+					<Typography
+						sx={{fontWeight: 'medium', color: '#39393e'}}
+						variant="h5"
+						component="div"
+						mb={4}
+					>
+						{currentUser?.name}
+					</Typography>
+					<Box
+						bgcolor={'rgb(48,37,240)'}
+						p={4}
+						borderRadius={6}
+						sx={{
+							background:
+								'linear-gradient(0deg, rgba(48,37,240,1) 0%, rgba(61,74,242,1) 35%, rgba(0,212,255,1) 100%)',
+						}}
+					>
 						<Typography
-							sx={{fontWeight: 'medium'}}
+							sx={{fontWeight: 'base'}}
 							variant="h5"
-							component="div"
+							component="h3"
+							color="#FFFF"
 						>
-							{currentUser?.name}
+							{currentWeather?.name}
 						</Typography>
-
 						<Box
 							display={'flex'}
 							justifyContent={'space-between'}
@@ -61,47 +83,50 @@ export const UserWeather = () => {
 							<Box
 								display={'flex'}
 								alignItems={'center'}
+								justifyContent={'center'}
+								margin={'auto'}
 							>
 								<Typography
 									sx={{fontWeight: 'bold'}}
 									variant="h4"
 									component="p"
-									color={'#00009'}
+									color={'#FFFF'}
 								>
-									{Math.round(data?.main.temp)}°C
+									{Math.round(currentWeather?.main.temp)}°C
 								</Typography>
 								<img
-									src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+									src={`https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
 									alt="icon"
 								/>
 							</Box>
-							<Box>
-								<Typography
-									sx={{fontWeight: 'base'}}
-									variant="h6"
-									component="p"
-								>
-									{data?.name}
-								</Typography>
-								<Typography
-									fontWeight={'bold'}
-									textAlign={'right'}
-									variant="caption"
-									component="p"
-								>
-									Humedad: {data?.main.humidity}%
-								</Typography>
-								<Typography
-									fontWeight={'bold'}
-									textAlign={'right'}
-									variant="caption"
-									component="p"
-								>
-									Viento: {Math.round(data?.wind.speed)} km/h
-								</Typography>
-							</Box>
+						</Box>
+						<Box>
+							<Typography
+								fontWeight={'bold'}
+								textAlign={'center'}
+								variant="caption"
+								component="p"
+								color="#FFFF"
+							>
+								Humedad: {currentWeather?.main.humidity}%
+							</Typography>
+							<Typography
+								fontWeight={'bold'}
+								textAlign={'center'}
+								variant="caption"
+								component="p"
+								color="#FFFF"
+							>
+								Viento: {Math.round(currentWeather?.wind.speed)} km/h
+							</Typography>
 						</Box>
 					</Box>
+					{currentUser?.lat && currentUser.long && (
+						<DailyForecastCards
+							lat={currentUser?.lat}
+							long={currentUser?.long}
+						/>
+					)}
 				</Box>
 			)}
 		</>

@@ -16,8 +16,6 @@ export interface User {
 function Home() {
 	const users = useAppSelector((state) => state.createUser.users)
 	const dispatch = useAppDispatch()
-	// const {data} = useGetWeatherQuery({})
-	console.log(console.log(import.meta.env.VITE_SOME_KEY))
 
 	console.log(users)
 	return (
@@ -37,7 +35,7 @@ function Home() {
 						variant="h5"
 						component="div"
 					>
-						Usuarios:
+						Usuarios
 					</Typography>
 					<Button
 						variant="contained"

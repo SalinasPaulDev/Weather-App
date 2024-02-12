@@ -47,3 +47,14 @@ detalles del clima de su ciudad. Los detalles a mostrar serán:
 Puntos a tomar en cuenta para el desarrollo de la app.
 La aplicación tendrá precargado 5 usuarios, los usuarios no es necesario que se guarden en una
 base de datos. Se pueden persistir en tu store con redux-persist.
+
+
+TODO: 
+    - agregar pronostico 4 dias
+    - agregar botones de editar/eliminar (3dots)
+    - form validation
+    - if exist latitud -longitud
+    - error page
+    - improve styles
+    - get images and owns icons (plus)
+    - ✅ loader

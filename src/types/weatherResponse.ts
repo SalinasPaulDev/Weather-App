@@ -43,7 +43,7 @@ interface Sys {
 	sunset: number
 }
 
-export interface WeatherData {
+export interface WeatherDataAPI {
 	coord: Coord
 	weather: Weather[]
 	base: string
