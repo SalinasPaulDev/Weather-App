@@ -6,6 +6,7 @@ import {useEffect, useState} from 'react'
 import {User} from './Home'
 import {Loader} from '../components/Loader'
 import {DailyForecastCards} from '../components/ForecastCards/ForecastCards'
+import {getTimezoneByLocation, indentifyHour} from '../utils/utils'
 
 export const UserWeather = () => {
 	const [currentUser, setCurrentUser] = useState<User | null>(null)
@@ -34,6 +35,9 @@ export const UserWeather = () => {
 
 	useEffect(() => {
 		findUser()
+		if (currentWeather?.timezone) {
+			getTimezoneByLocation(currentWeather.timezone)
+		}
 	}, [])
 
 	return (
@@ -58,14 +62,8 @@ export const UserWeather = () => {
 					>
 						{currentUser?.name}
 					</Typography>
-					<Box
-						bgcolor={'rgb(48,37,240)'}
-						p={4}
-						borderRadius={6}
-						sx={{
-							background:
-								'linear-gradient(0deg, rgba(48,37,240,1) 0%, rgba(61,74,242,1) 35%, rgba(0,212,255,1) 100%)',
-						}}
+					<div
+						className={`box-temp ${indentifyHour(getTimezoneByLocation(currentWeather.timezone), true)}`}
 					>
 						<Typography
 							sx={{fontWeight: 'base'}}
@@ -120,7 +118,7 @@ export const UserWeather = () => {
 								Viento: {Math.round(currentWeather?.wind.speed)} km/h
 							</Typography>
 						</Box>
-					</Box>
+					</div>
 					{currentUser?.lat && currentUser.long && (
 						<DailyForecastCards
 							lat={currentUser?.lat}

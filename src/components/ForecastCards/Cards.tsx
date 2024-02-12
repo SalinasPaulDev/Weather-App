@@ -1,10 +1,12 @@
 import moment from 'moment'
 import {ForecastList} from '../../types/dailyForecast'
 import {Typography} from '@mui/material'
+import {indentifyHour} from '../../utils/utils'
 
 export const Cards = ({dailyForecast}: {dailyForecast: ForecastList}) => {
 	console.log(dailyForecast)
 	const currentHour = moment(dailyForecast.dt_txt).format('LT')
+	console.log(currentHour)
 	return (
 		<div>
 			<Typography
@@ -14,7 +16,7 @@ export const Cards = ({dailyForecast}: {dailyForecast: ForecastList}) => {
 			>
 				{currentHour}
 			</Typography>
-			<div className="card-item-container">
+			<div className={`card-item-container ${indentifyHour(currentHour)}`}>
 				<Typography
 					fontWeight={'bold'}
 					variant="h5"

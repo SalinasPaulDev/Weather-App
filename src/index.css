@@ -118,9 +118,17 @@ body {
   border: 1px solid blue;
   padding: 8px;
   border-radius: 4px;
+}
+
+.bg-day {
+  background: rgb(48,37,240);
+  background: linear-gradient(0deg, rgba(48,37,240,1) 6%, rgba(26,74,184,1) 39%, rgba(5,164,224,1) 100%);
+}
+.bg-night {
   background: rgb(48,37,240);
   background: linear-gradient(0deg, rgba(48,37,240,1) 1%, rgba(19,19,168,1) 45%, rgba(6,3,79,1) 100%);
 }
+
 
 
 .cards-container::-webkit-scrollbar-track
@@ -148,7 +156,12 @@ body {
 									   color-stop(0.72, rgb(73,125,189)),
 									   color-stop(0.86, rgb(28,58,148)));
 }
-    
+   
+.box-temp {
+padding: 50px;
+border-radius: 8px;
+}
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
