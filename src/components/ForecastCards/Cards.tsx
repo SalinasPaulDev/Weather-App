@@ -1,5 +1,5 @@
 import moment from 'moment'
-import {DailyForecastAPI, ForecastList} from '../../types/dailyForecast'
+import {ForecastList} from '../../types/dailyForecast'
 import {Typography} from '@mui/material'
 
 export const Cards = ({dailyForecast}: {dailyForecast: ForecastList}) => {

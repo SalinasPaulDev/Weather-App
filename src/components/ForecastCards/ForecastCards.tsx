@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useGetDailyForecastQuery} from '../../API/weather'
 import {Cards} from './Cards'
 import {ForecastList} from '../../types/dailyForecast'
