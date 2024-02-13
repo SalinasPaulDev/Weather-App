@@ -6,7 +6,10 @@ import {store} from './store/store.ts'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import {Header} from './components/Header.tsx'
 import {UserWeather} from './views/UserWeather.tsx'
+import {PersistGate} from 'redux-persist/integration/react'
+import {persistStore} from 'redux-persist'
 
+const persistor = persistStore(store)
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -26,6 +29,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<Provider store={store}>
-		<RouterProvider router={router} />
+		<PersistGate persistor={persistor}>
+			<RouterProvider router={router} />
+		</PersistGate>
 	</Provider>,
 )

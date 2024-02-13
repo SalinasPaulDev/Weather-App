@@ -61,11 +61,11 @@ export const DailyForecastCards = ({
 	return (
 		<>
 			<Box>
-				<FormControl sx={{minWidth: 80, pt: 4, float: 'left'}}>
+				<FormControl sx={{minWidth: 80, pt: 4}}>
 					<Select
 						value={selectedDay}
 						onChange={({target}) => setSelectedDay(target.value)}
-						displayEmpty
+						defaultValue="13/02"
 					>
 						{result.map((x) => (
 							<MenuItem
@@ -76,7 +76,7 @@ export const DailyForecastCards = ({
 							</MenuItem>
 						))}
 					</Select>
-					<FormHelperText>Dia</FormHelperText>
+					<FormHelperText>Pronostico del dia: </FormHelperText>
 				</FormControl>
 			</Box>
 

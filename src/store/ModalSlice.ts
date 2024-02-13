@@ -3,10 +3,12 @@ import {PayloadAction, createSlice} from '@reduxjs/toolkit'
 
 interface ModalState {
 	open: boolean
+	editId?: string
 }
 
 const initialState: ModalState = {
 	open: false,
+	editId: '',
 }
 
 const ModalSlice = createSlice({
@@ -14,7 +16,8 @@ const ModalSlice = createSlice({
 	initialState,
 	reducers: {
 		setOpenModal: (state, action: PayloadAction<ModalState>) => {
-			state.open = action.payload.open
+			;(state.open = action.payload.open),
+				(state.editId = action.payload.editId)
 		},
 	},
 })

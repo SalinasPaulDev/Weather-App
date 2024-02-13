@@ -49,12 +49,17 @@ La aplicación tendrá precargado 5 usuarios, los usuarios no es necesario que s
 base de datos. Se pueden persistir en tu store con redux-persist.
 
 
+validation : 
+    - name: 10 ch max
+    - lat y long max 10 ch && numbers only
+
 TODO: 
-    - agregar botones de editar/eliminar (3dots)
-    - form validation
-    - if exist latitud -longitud
+    - form validation - dudoso ⚠️
     - error page
-    - improve styles
-    - get images and owns icons (plus)
+    -  ✅usar redux suspense
+    - if exist latitud -longitud    - dudoso
+    - ✅aagregar botones de editar/eliminar (3dots)
+    - ✅aimprove styles
+    - ✅aget images and owns icons (plus)
     - ✅agregar pronostico 4 dias
     - ✅ loader

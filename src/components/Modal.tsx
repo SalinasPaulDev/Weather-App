@@ -1,8 +1,8 @@
 import {Box, Button, Modal, TextField, Typography} from '@mui/material'
-import {useRef} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {User} from '../views/Home'
 import {useAppDispatch, useAppSelector} from '../store/store'
-import {createUser} from '../store/CreateUserSlice'
+import {createUser, updateUser} from '../store/CreateUserSlice'
 import {setOpenModal} from '../store/ModalSlice'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
@@ -24,18 +24,85 @@ const style = {
 export type UserData = Omit<User, 'id'>
 
 export const UserModal = () => {
-	const newUser = useRef<UserData>({name: '', lat: '', long: ''})
+	const [newUser, setNewUser] = useState<UserData>({
+		name: '',
+		lat: '',
+		long: '',
+	})
 	const dispatch = useAppDispatch()
 	const isModalOpen = useAppSelector((state) => state.setOpenModal.open)
+	const editModeId = useAppSelector((state) => state.setOpenModal.editId)
+	const users = useAppSelector((state) => state.createUser.users)
+	const [isDisabled, setIsDisabled] = useState(false)
 
 	const addNewUser = ({name, lat, long}: UserData) => {
 		dispatch(createUser({name, lat, long}))
 	}
 
-	const onSubmit = (e: React.MouseEvent) => {
+	const onHandleCreate = (e: React.MouseEvent) => {
 		e.preventDefault()
-		addNewUser(newUser.current)
+		addNewUser(newUser)
 		dispatch(setOpenModal({open: false}))
+		setNewUser({name: '', lat: '', long: ''})
+	}
+
+	const onEditMode = () => {
+		const found = users.find((x) => x.id === editModeId)
+		console.log(found)
+
+		found && setNewUser({name: found.name, lat: found.lat, long: found.long})
+	}
+
+	const onHandleEdit = () => {
+		dispatch(
+			updateUser({
+				id: editModeId || '',
+				name: newUser.name,
+				lat: newUser.lat,
+				long: newUser.long,
+			}),
+		)
+		dispatch(setOpenModal({open: false}))
+		setNewUser({name: '', lat: '', long: ''})
+	}
+
+	const onSubmit = (e: React.MouseEvent) => {
+		if (editModeId) {
+			onHandleEdit()
+		} else {
+			onHandleCreate(e)
+		}
+	}
+
+	useEffect(() => {
+		if (editModeId) {
+			onEditMode()
+		}
+	}, [isModalOpen])
+
+	useEffect(() => {
+		setIsDisabled(
+			!newUser.name.length || !newUser.lat.length || !newUser.long.length,
+		)
+	}, [newUser])
+
+	const handleValidation = (value: string, field: 'name' | 'lat' | 'long') => {
+		if (field === 'name') {
+			if (value.length > 12) {
+				return (value = '')
+			}
+			setNewUser((rest) => ({...rest, name: value}))
+		}
+		if (field === 'lat' || field === 'long') {
+			if (value.length > 12) {
+				return (value = '')
+			}
+			const regex = /^-?\d*(\.\d*)?$/
+
+			if (regex.test(value)) {
+				setNewUser((rest) => ({...rest, [field]: value}))
+			}
+		}
 	}
 
 	return (
@@ -57,7 +124,7 @@ export const UserModal = () => {
 						component="h2"
 						textAlign={'center'}
 					>
-						Agrega usuario
+						{editModeId ? 'Editar usuario' : 'Agrega usuario'}
 					</Typography>
 					<Box
 						component="form"
@@ -72,34 +139,30 @@ export const UserModal = () => {
 							label="Nombre"
 							variant="standard"
 							sx={{width: '90%'}}
-							onChange={({target}) => (newUser.current.name = target.value)}
+							value={newUser.name}
+							onChange={({target}) => handleValidation(target.value, 'name')}
 						/>
 						<TextField
 							id="standard-basic"
 							label="Latitud"
 							variant="standard"
 							sx={{width: '90%'}}
-							onChange={({target}) => (newUser.current.lat = target.value)}
+							value={newUser.lat}
+							onChange={({target}) => {
+								// if (target.value === '') {
+								// 	setNewUser((rest) => ({...rest, lat: ''}))
+								// }
+								handleValidation(target.value, 'lat')
+							}}
 						/>
 						<TextField
 							id="standard-basic"
 							label="Longitud"
 							variant="standard"
 							sx={{width: '90%'}}
-							onChange={({target}) => (newUser.current.long = target.value)}
+							value={newUser.long}
+							onChange={({target}) => handleValidation(target.value, 'long')}
 						/>
-						{/* <Autocomplete
-								disablePortal
-								id="combo-box-demo"
-								options={[]}
-								sx={{width: 300}}
-								renderInput={(params) => (
-									<TextField
-										{...params}
-										label="Movie"
-									/>
-								)}
-							/> */}
 					</Box>
 					<Button
 						onClick={(e) => {
@@ -107,8 +170,9 @@ export const UserModal = () => {
 						}}
 						sx={{marginTop: '30px'}}
 						variant="outlined"
+						disabled={isDisabled}
 					>
-						Crear usuario
+						{editModeId ? 'Editar usuario' : 'Crear usuario'}
 					</Button>
 				</Box>
 			</Modal>

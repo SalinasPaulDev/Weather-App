@@ -10,7 +10,7 @@ interface UserState {
 const initialState: UserState = {
 	users: [
 		{
-			id: '1',
+			id: '$2y$10$exS.wXYOPWvs9zb.wcNT3O9tqmgobJ6MKmnNCW32MOxQwD4LQxiRq',
 			name: 'Roberto',
 			lat: '37.77493',
 			long: '-122.41942',
@@ -22,8 +22,20 @@ const initialState: UserState = {
 			long: '-3.70256',
 		},
 		{
-			id: '3',
+			id: '$2y$10$SeXUoGQmg4ok9/PjnOvomu0hyfTA70Vz5DvzsKf93DDGVn8iIKDVe',
 			name: 'Alex',
+			lat: '19.42847',
+			long: '-99.12766',
+		},
+		{
+			id: '$2y$10$7MOZut.GVwdFsrJFQsfL7.g62ETSKSUbwXE.zDy/57wMYRRgbXJ1O',
+			name: 'Milagros',
+			lat: '19.42847',
+			long: '-99.12766',
+		},
+		{
+			id: '$2y$10$n6I68dgDJnV6T.CCFBRFzusTlWJoyglKE7uIpGVlppMaVkdKHq9GC',
+			name: 'Candela',
 			lat: '19.42847',
 			long: '-99.12766',
 		},
@@ -42,8 +54,26 @@ const CreateUserSlice = createSlice({
 				long: action.payload.long,
 			})
 		},
+		updateUser: (state, action: PayloadAction<User>) => {
+			state.users.map((x) => {
+				if (x.id === action.payload.id) {
+					return (
+						(x.name = action.payload.name),
+						(x.long = action.payload.long),
+						(x.lat = action.payload.lat)
+					)
+				}
+				return x
+			})
+		},
+		deleteUser: (state, action: PayloadAction<{id: string}>) => {
+			const filteredUsers = state.users.filter(
+				(x) => x.id !== action.payload.id,
+			)
+			state.users = filteredUsers
+		},
 	},
 })
 
 export default CreateUserSlice
-export const {createUser} = CreateUserSlice.actions
+export const {createUser, updateUser, deleteUser} = CreateUserSlice.actions
