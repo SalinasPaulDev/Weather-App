@@ -7,8 +7,6 @@ import ModalSlice from './ModalSlice'
 import {weatherAPI} from '../API/weather'
 import {persistStore, persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import storageSession from 'redux-persist/lib/storage/session'
-import {thunk} from 'redux-thunk'
 
 const persistConfig = {
 	key: 'root',

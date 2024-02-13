@@ -1,5 +1,5 @@
 import {Box, Button, Modal, TextField, Typography} from '@mui/material'
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {User} from '../views/Home'
 import {useAppDispatch, useAppSelector} from '../store/store'
 import {createUser, updateUser} from '../store/CreateUserSlice'
