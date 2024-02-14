@@ -7,6 +7,7 @@ import LaunchIcon from '@mui/icons-material/Launch'
 import {useAppDispatch} from '../store/store'
 import {setOpenModal} from '../store/ModalSlice'
 import {deleteUser} from '../store/CreateUserSlice'
+import {EventsListenerEnum, eventListener} from '../store/common'
 
 export const UserList = ({name, long, lat, id}: User) => {
 	const dispatch = useAppDispatch()
@@ -17,6 +18,9 @@ export const UserList = ({name, long, lat, id}: User) => {
 
 	const handleDelete = () => {
 		dispatch(deleteUser({id}))
+		dispatch(
+			eventListener({event: EventsListenerEnum.DELETE_USER, value: true}),
+		)
 	}
 
 	return (

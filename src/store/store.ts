@@ -7,6 +7,7 @@ import ModalSlice from './ModalSlice'
 import {weatherAPI} from '../API/weather'
 import {persistStore, persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import CommonSlice from './common'
 
 const persistConfig = {
 	key: 'root',
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
 	createUser: CreateUserSlice.reducer,
 	setOpenModal: ModalSlice.reducer,
 	[weatherAPI.reducerPath]: weatherAPI.reducer,
+	common: CommonSlice.reducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

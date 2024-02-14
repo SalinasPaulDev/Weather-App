@@ -36,9 +36,7 @@ export const getTimezoneByLocation = (timezone: number) => {
 		minute: 'numeric',
 	})
 
-	// Obtener la cadena formateada con la fecha y hora en el timezone deseado
 	const formattedDate = dateFormatter.format(dateWithTimezone)
 
-	// Mostrar la fecha y hora en tu página web
 	return formattedDate
 }

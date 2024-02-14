@@ -2,9 +2,10 @@ import {Box, Button, Modal, TextField, Typography} from '@mui/material'
 import {useEffect, useState} from 'react'
 import {User} from '../views/Home'
 import {useAppDispatch, useAppSelector} from '../store/store'
-import {createUser, updateUser} from '../store/CreateUserSlice'
 import {setOpenModal} from '../store/ModalSlice'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
+import {EventsListenerEnum, eventListener} from '../store/common'
+import {createUser, updateUser} from '../store/CreateUserSlice'
 
 const style = {
 	position: 'absolute' as const,
@@ -69,8 +70,14 @@ export const UserModal = () => {
 	const onSubmit = (e: React.MouseEvent) => {
 		if (editModeId) {
 			onHandleEdit()
+			dispatch(
+				eventListener({event: EventsListenerEnum.UPDATE_USER, value: true}),
+			)
 		} else {
 			onHandleCreate(e)
+			dispatch(
+				eventListener({event: EventsListenerEnum.CREATE_USER, value: true}),
+			)
 		}
 	}
 
@@ -149,9 +156,6 @@ export const UserModal = () => {
 							sx={{width: '90%'}}
 							value={newUser.lat}
 							onChange={({target}) => {
-								// if (target.value === '') {
-								// 	setNewUser((rest) => ({...rest, lat: ''}))
-								// }
 								handleValidation(target.value, 'lat')
 							}}
 						/>

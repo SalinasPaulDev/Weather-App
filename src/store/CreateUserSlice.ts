@@ -6,6 +6,9 @@ import {UserData} from '../components/Modal'
 
 interface UserState {
 	users: User[]
+	userCreated: boolean
+	userUpdated: boolean
+	userDeleted: boolean
 }
 const initialState: UserState = {
 	users: [
@@ -40,6 +43,9 @@ const initialState: UserState = {
 			long: '-99.12766',
 		},
 	],
+	userCreated: false,
+	userUpdated: false,
+	userDeleted: false,
 }
 
 const CreateUserSlice = createSlice({

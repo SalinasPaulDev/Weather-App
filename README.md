@@ -48,18 +48,3 @@ Puntos a tomar en cuenta para el desarrollo de la app.
 La aplicación tendrá precargado 5 usuarios, los usuarios no es necesario que se guarden en una
 base de datos. Se pueden persistir en tu store con redux-persist.
 
-
-validation : 
-    - name: 10 ch max
-    - lat y long max 10 ch && numbers only
-
-TODO: 
-    - form validation - dudoso ⚠️
-    - error page
-    -  ✅usar redux suspense
-    - if exist latitud -longitud    - dudoso
-    - ✅aagregar botones de editar/eliminar (3dots)
-    - ✅aimprove styles
-    - ✅aget images and owns icons (plus)
-    - ✅agregar pronostico 4 dias
-    - ✅ loader

@@ -6,6 +6,8 @@ import {useAppDispatch, useAppSelector} from '../store/store'
 import {setOpenModal} from '../store/ModalSlice'
 import {CheckCircleOutline} from '@mui/icons-material'
 import {Loader} from '../components/Loader'
+import {useCallback, useEffect, useState} from 'react'
+import {EventsListenerEnum, eventListener} from '../store/common'
 
 export interface User {
 	id: string
@@ -16,8 +18,27 @@ export interface User {
 
 function Home() {
 	const users = useAppSelector((state) => state.createUser.users)
+	const {userCreated, userDeleted, userUpdated} = useAppSelector(
+		(state) => state.common,
+	)
 	const dispatch = useAppDispatch()
 
+	const handleClose = () => {
+		const events = [
+			EventsListenerEnum.CREATE_USER,
+			EventsListenerEnum.DELETE_USER,
+			EventsListenerEnum.UPDATE_USER,
+		]
+
+		events.map((event) => {
+			dispatch(
+				eventListener({
+					event,
+					value: false,
+				}),
+			)
+		})
+	}
 	return (
 		<>
 			{!users ? (
@@ -73,13 +94,26 @@ function Home() {
 						</List>
 					</Box>
 					<UserModal />
-					<Alert
-						icon={<CheckCircleOutline fontSize="inherit" />}
-						severity="success"
-						sx={{position: 'absolute', top: 0, width: '100%'}}
-					>
-						Usuario creado con exito!.
-					</Alert>
+					{(!!userCreated || !!userDeleted || !!userUpdated) && (
+						<Alert
+							icon={<CheckCircleOutline fontSize="inherit" />}
+							severity={userDeleted ? 'error' : 'success'}
+							sx={{
+								position: 'absolute',
+								top: 0,
+								width: '100%',
+							}}
+							onClose={() => handleClose()}
+						>
+							Usuario{' '}
+							{userDeleted
+								? 'eliminado'
+								: userCreated
+									? 'creado'
+									: 'actualizado'}{' '}
+							con exito!.
+						</Alert>
+					)}
 				</>
 			)}
 		</>
