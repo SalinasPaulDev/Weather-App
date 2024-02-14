@@ -6,7 +6,6 @@ import {useAppDispatch, useAppSelector} from '../store/store'
 import {setOpenModal} from '../store/ModalSlice'
 import {CheckCircleOutline} from '@mui/icons-material'
 import {Loader} from '../components/Loader'
-import {useCallback, useEffect, useState} from 'react'
 import {EventsListenerEnum, eventListener} from '../store/common'
 
 export interface User {
