@@ -27,14 +27,14 @@ const initialState: UserState = {
 		{
 			id: '$2y$10$SeXUoGQmg4ok9/PjnOvomu0hyfTA70Vz5DvzsKf93DDGVn8iIKDVe',
 			name: 'Alex',
-			lat: '19.42847',
-			long: '-99.12766',
+			lat: '55.75222',
+			long: '37.61556',
 		},
 		{
 			id: '$2y$10$7MOZut.GVwdFsrJFQsfL7.g62ETSKSUbwXE.zDy/57wMYRRgbXJ1O',
 			name: 'Milagros',
-			lat: '19.42847',
-			long: '-99.12766',
+			lat: '55.75222',
+			long: '37.61556',
 		},
 		{
 			id: '$2y$10$n6I68dgDJnV6T.CCFBRFzusTlWJoyglKE7uIpGVlppMaVkdKHq9GC',
