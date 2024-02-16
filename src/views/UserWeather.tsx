@@ -28,7 +28,6 @@ export const UserWeather = () => {
 		if (newUser) {
 			setCurrentUser(newUser)
 		} else {
-			//! cambiar por alerta
 			navigate('/')
 		}
 	}
